@@ -48,6 +48,15 @@ class MainViewController: UIViewController {
         imgHammerView.frame = viewFrame
         
         self.view.addSubview(imgHammerView)
+        
+        //回転
+        let hammerAnimation = CABasicAnimation(keyPath: "transform.rotation.z")
+        hammerAnimation.duration = 0.2
+        hammerAnimation.toValue = -2
+        hammerAnimation.fillMode = kCAFillModeRemoved
+        hammerAnimation.delegate = self
+        imgHammerView.layer.addAnimation(hammerAnimation, forKey: "hammerAnimation")
+
     }
     
     override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
