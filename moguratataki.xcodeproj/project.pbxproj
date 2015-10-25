@@ -14,6 +14,8 @@
 		6A8D3FFD1BDC73C800F24027 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6A8D3FFB1BDC73C800F24027 /* LaunchScreen.storyboard */; };
 		6A8D40081BDC73C800F24027 /* moguratatakiTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D40071BDC73C800F24027 /* moguratatakiTests.swift */; };
 		6A8D40131BDC73C900F24027 /* moguratatakiUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D40121BDC73C900F24027 /* moguratatakiUITests.swift */; };
+		6A8D40211BDC74D600F24027 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D40201BDC74D600F24027 /* MainViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		6A8D40231BDC795F00F24027 /* Mogura.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A8D40221BDC795F00F24027 /* Mogura.swift */; settings = {ASSET_TAGS = (); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +49,8 @@
 		6A8D400E1BDC73C800F24027 /* moguratatakiUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = moguratatakiUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		6A8D40121BDC73C900F24027 /* moguratatakiUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = moguratatakiUITests.swift; sourceTree = "<group>"; };
 		6A8D40141BDC73C900F24027 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		6A8D40201BDC74D600F24027 /* MainViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
+		6A8D40221BDC795F00F24027 /* Mogura.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mogura.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -103,6 +107,8 @@
 				6A8D3FF91BDC73C800F24027 /* Assets.xcassets */,
 				6A8D3FFB1BDC73C800F24027 /* LaunchScreen.storyboard */,
 				6A8D3FFE1BDC73C800F24027 /* Info.plist */,
+				6A8D40201BDC74D600F24027 /* MainViewController.swift */,
+				6A8D40221BDC795F00F24027 /* Mogura.swift */,
 			);
 			path = moguratataki;
 			sourceTree = "<group>";
@@ -258,7 +264,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A8D40211BDC74D600F24027 /* MainViewController.swift in Sources */,
 				6A8D3FF51BDC73C800F24027 /* ViewController.swift in Sources */,
+				6A8D40231BDC795F00F24027 /* Mogura.swift in Sources */,
 				6A8D3FF31BDC73C800F24027 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
