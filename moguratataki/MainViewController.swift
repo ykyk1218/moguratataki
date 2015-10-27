@@ -27,11 +27,45 @@ class MainViewController: UIViewController {
         self.setMogura()
         self.view.addSubview(lblTitle)
         self.view.addSubview(imgHammerView)
+        
+        NSTimer.scheduledTimerWithTimeInterval(1, target: self, selector: "move", userInfo: nil, repeats: true)
     }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
+    }
+    
+    func move() {
+        //print(moguras.count)
+        if moguras.count < 10 {
+            let random = Int(arc4random_uniform(9))
+            //モグラアニメーション
+            let mogura = moguras[random]
+            
+            let moguraAnimation = CABasicAnimation(keyPath: "position.y")
+            moguraAnimation.delegate = self
+            moguraAnimation.duration = 0.5
+            moguraAnimation.repeatCount = 1
+            moguraAnimation.byValue = -50
+            //moguraAnimation.fillMode = kCAFillModeRemoved
+            moguraAnimation.autoreverses = true
+            moguraAnimation.delegate = self
+            moguraAnimation.setValue(mogura, forKey: "mogura")
+            mogura.layer.addAnimation(moguraAnimation, forKey: "moguraAnimation")
+            
+            //moguras[random].backgroundColor = UIColor.blackColor()
+        }
+    }
+
+    override func animationDidStart(anim: CAAnimation) {
+        let mogura = anim.valueForKey("mogura") as! Mogura
+        mogura.hitFlg = true
+    }
+    
+    override func animationDidStop(anim: CAAnimation, finished flag: Bool) {
+        let mogura = anim.valueForKey("mogura") as! Mogura
+        mogura.hitFlg = false
     }
     
     override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
@@ -54,7 +88,6 @@ class MainViewController: UIViewController {
         hammerAnimation.duration = 0.2
         hammerAnimation.toValue = -2
         hammerAnimation.fillMode = kCAFillModeRemoved
-        hammerAnimation.delegate = self
         imgHammerView.layer.addAnimation(hammerAnimation, forKey: "hammerAnimation")
 
     }
@@ -87,30 +120,26 @@ class MainViewController: UIViewController {
     
     private func setMogura() {
         var num: Int = 0
-        let moguraWidth  = 30
-        let moguraHeight = 30
+        let moguraWidth  = 50
+        let moguraHeight = 50
         for y in 0...2 {
             for x in 0...2 {
+                //モグラ配置
                 let mogura = Mogura()
-                mogura.frame = CGRectMake(CGFloat(10+(moguraWidth+30)*x), CGFloat(60+(moguraHeight+30)*y), CGFloat(moguraWidth), CGFloat(moguraHeight))
-                print(mogura.frame)
-                mogura.sampleMogura()
+                mogura.frame = CGRectMake(CGFloat(10+(moguraWidth+50)*x), CGFloat(60+(moguraHeight+70)*y), CGFloat(moguraWidth), CGFloat(moguraHeight))
                 self.view.addSubview(mogura)
-            
                 moguras.append(mogura)
+                
+                //隠れるやつ配置
+                let yama:UIView = UIView(frame: CGRectMake(CGFloat(10+(moguraWidth+50)*x), CGFloat(60+(moguraHeight+70)*y), CGFloat(moguraWidth+5), CGFloat(moguraHeight+5)))
+                yama.backgroundColor = UIColor.brownColor()
+                self.view.addSubview(yama)
                 num = num + 1
             }
         }
     }
     
-    private func animateMogura() {
-        let random = Int(arc4random_uniform(10))
-        moguras[random].backgroundColor = UIColor.blackColor()
-        print("wawawa")
-    }
     
-    
-
     /*
     // MARK: - Navigation
 
