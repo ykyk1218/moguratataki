@@ -21,16 +21,16 @@ class Mogura: UIView {
     
     init() {
         super.init(frame: CGRectZero)
-        self.backgroundColor = UIColor.blueColor()
+        //self.backgroundColor = UIColor.blueColor()
         
         let imgViewMogura = UIImageView(frame: CGRectMake(0,0,42,51))
         let imgMogura = UIImage(named: "mogura.png")
         imgViewMogura.image = imgMogura
         
-        let aSelector = Selector("tapGesture:")
-        let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: aSelector)
+        //let aSelector = Selector("tapGesture:")
+        //let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: aSelector)
         
-        self.addGestureRecognizer(tapGestureRecognizer)
+        //self.addGestureRecognizer(tapGestureRecognizer)
         self.userInteractionEnabled = true
         self.addSubview(imgViewMogura)
     }
@@ -45,6 +45,7 @@ class Mogura: UIView {
     }
     
     
+    /*
     func tapGesture(gestureRecognizer: UITapGestureRecognizer) {
         print(self.hitFlg)
         if self.hitFlg {
@@ -54,6 +55,7 @@ class Mogura: UIView {
             print("mogura miss!!")
         }
     }
+*/
 
 
 }

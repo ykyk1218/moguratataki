@@ -11,14 +11,14 @@ import UIKit
 class MainViewController: UIViewController {
     var moguras:Array<Mogura> = []
     let imgHammerView = UIImageView()
+    let lblTitle:UILabel = UILabel(frame: CGRectMake(0,30,100,20))
+    var score: Int = 0
 
     
     override func viewDidLoad() {
         super.viewDidLoad()
         self.view.backgroundColor = UIColor.whiteColor()
-        
-        let lblTitle:UILabel = UILabel(frame: CGRectMake(0,30,100,20))
-        lblTitle.text = "hogehoge"
+        self.lblTitle.text = "0"
         
         imgHammerView.frame = CGRectMake(0,0,50,70)
         let imgHammer = UIImage(named: "picopicohammer.png")
@@ -42,7 +42,24 @@ class MainViewController: UIViewController {
             let random = Int(arc4random_uniform(9))
             //モグラアニメーション
             let mogura = moguras[random]
+            UIView.animateWithDuration (
+                0.5,
+                delay:0.0,
+                options: [UIViewAnimationOptions.CurveLinear, UIViewAnimationOptions.Autoreverse, UIViewAnimationOptions.AllowUserInteraction],
+                animations: {() -> Void in
+                    let orgFrame:CGRect = mogura.frame
+                    let y = orgFrame.origin.y
+                    mogura.frame.origin.y = y-50
+                },
+                completion: {(Bool finished) -> Void in
+                    let orgFrame:CGRect = mogura.frame
+                    let y = orgFrame.origin.y
+                    mogura.frame.origin.y = y+50
+                }
+            )
             
+
+            /*
             let moguraAnimation = CABasicAnimation(keyPath: "position.y")
             moguraAnimation.delegate = self
             moguraAnimation.duration = 0.5
@@ -53,6 +70,7 @@ class MainViewController: UIViewController {
             moguraAnimation.delegate = self
             moguraAnimation.setValue(mogura, forKey: "mogura")
             mogura.layer.addAnimation(moguraAnimation, forKey: "moguraAnimation")
+*/
             
             //moguras[random].backgroundColor = UIColor.blackColor()
         }
@@ -72,6 +90,8 @@ class MainViewController: UIViewController {
         print("touch began!!")
         let touchEvent = touches.first!
         
+        //event?.touchesForView()
+        
         let newDx = touchEvent.locationInView(self.view).x
         let newDy = touchEvent.locationInView(self.view).y
         
@@ -80,6 +100,46 @@ class MainViewController: UIViewController {
         viewFrame.origin.x = newDx
         viewFrame.origin.y = newDy
         imgHammerView.frame = viewFrame
+        
+        let touchView:UIView = touchEvent.view!
+        if touchView.dynamicType == Mogura.self {
+            
+            // moguraアニメーション
+            let mogura:UIView = touchView
+            mogura.hidden = true
+            
+            let bombImgView = UIImageView(frame: mogura.frame)
+            let bombImg = UIImage(named: "frame00038.png")
+            bombImgView.image = bombImg
+            self.view.addSubview(bombImgView)
+            
+            UIView.animateWithDuration (
+                0.2,
+                delay:0.0,
+                options: [UIViewAnimationOptions.CurveLinear, UIViewAnimationOptions.Autoreverse, UIViewAnimationOptions.AllowUserInteraction],
+                animations: {() -> Void in
+                    let orgFrame:CGRect = bombImgView.frame
+                    let x = orgFrame.origin.x
+                    bombImgView.frame.origin.x = x-5
+                },
+                completion: {(Bool finished) -> Void in
+                    let orgFrame:CGRect = bombImgView.frame
+                    let x = orgFrame.origin.x
+                    bombImgView.frame.origin.x = x+5
+                    
+                    bombImgView.removeFromSuperview()
+                    mogura.hidden = false
+                    
+                    //スコアを追加
+                    let text:String = self.lblTitle.text!
+                    self.score = Int(text)!
+                    self.score = self.score + 1
+                    self.lblTitle.text = String(self.score)
+                    
+                }
+            )
+
+        }
         
         self.view.addSubview(imgHammerView)
         
@@ -126,12 +186,12 @@ class MainViewController: UIViewController {
             for x in 0...2 {
                 //モグラ配置
                 let mogura = Mogura()
-                mogura.frame = CGRectMake(CGFloat(10+(moguraWidth+50)*x), CGFloat(60+(moguraHeight+70)*y), CGFloat(moguraWidth), CGFloat(moguraHeight))
+                mogura.frame = CGRectMake(CGFloat(13+(moguraWidth+50)*x), CGFloat(100+(moguraHeight+70)*y), CGFloat(moguraWidth), CGFloat(moguraHeight))
                 self.view.addSubview(mogura)
                 moguras.append(mogura)
                 
                 //隠れるやつ配置
-                let yama:UIView = UIView(frame: CGRectMake(CGFloat(10+(moguraWidth+50)*x), CGFloat(60+(moguraHeight+70)*y), CGFloat(moguraWidth+5), CGFloat(moguraHeight+5)))
+                let yama:UIView = UIView(frame: CGRectMake(CGFloat(10+(moguraWidth+50)*x), CGFloat(100+(moguraHeight+70)*y), CGFloat(moguraWidth+5), CGFloat(moguraHeight+5)))
                 yama.backgroundColor = UIColor.brownColor()
                 self.view.addSubview(yama)
                 num = num + 1
